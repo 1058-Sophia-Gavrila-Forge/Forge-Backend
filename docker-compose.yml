@@ -1,0 +1,10 @@
+version: "3"
+services: 
+    forge:
+        image: portfolio/forge:latest
+        environment: 
+            DB_URL: "jdbc:postgresql://45.63.74.90:5432/twORM"
+            DB_USER: "bnbn"
+            DB_PASS: "vultrPostgres"
+        ports: 
+            - "8081:8081"

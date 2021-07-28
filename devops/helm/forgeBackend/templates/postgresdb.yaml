@@ -1,0 +1,57 @@
+{{- if .Values.db.persist }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "forgeBackend.fullname" . }}-db
+  labels:
+    {{- include "forgeBackend.labels" . | nindent 4 }}
+spec:
+  ports:
+  - port: 5432
+    name: psql
+  clusterIP: None
+  selector:
+    {{- include "forgeBackend.selectorlabels" . | nindent 4 }}
+    part: db
+{{- end }}
+---
+{{- if .Values.db.persist }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: psqldb
+  labels: 
+    {{- include "forgeBackend.labels" . | nindent 4 }}
+    part: db
+spec:
+  selector:
+    matchLabels:
+      {{- include "forgeBackend.selectorlabels" . | nindent 6 }}
+      part: db
+  serviceName: "nginx"
+  replicas: {{ .Values.}}
+  template:
+    metadata:
+      labels:
+        app: psqldb # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: db
+        image: postgres:13-alpine
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: default
+      resources:
+        requests:
+          storage: 1Gi
+{{- end }}

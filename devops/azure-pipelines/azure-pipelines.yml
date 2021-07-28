@@ -52,7 +52,7 @@ stages:
           containerRegistry: '${{ parameters.containerRegistry }}'
           repository: '${{ parameters.repository }}'
           imageTag: ${{ variables['Build.SourceVersion'] }}
-          dockerPath: '**/mavenpipe.dockerfile'
+          dockerPath: '**/pipeline.Dockerfile'
 
   - stage: Deploy
     condition: >

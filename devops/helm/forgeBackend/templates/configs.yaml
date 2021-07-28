@@ -17,5 +17,5 @@ kind: Secret
 metadata:
   name: {{ .Release.Name }}-{{ .Values.dbconfig.secretName }}
 stringData:
-  username: {{ .Values.dbconfig.username }}
-  password: {{ .Values.dbconfig.password }}
+  username: {{ .Values.dbconfig.login.username }}
+  password: {{ .Values.dbconfig.login.password }}

@@ -15,13 +15,35 @@ deploy:
   port: 8081
   portName: entry
 
+db:
+  image: postgres:13-alpine
+  persist: false
+  dbname: forge
+  deploy:
+    name: psql-sset
+    port: 5432
+    portName: psql
+  service:
+    name: psql-svc
+    port: 80
+    portName: psql
+  pvc:
+    claimName: t2dbdata
+    mountPath: /var/lib/
+    storageClassName: default
+    resources:
+      requests:
+        storage: 512Mi
+      limits:
+        storage: 1024Mi
+
 dbconfig:
   name: dbconfig
   secretName: dblogin
-  username: sa
-  password: password
+  login:
+    username: postgres
+    password: password
   datasource:
-    url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     platform: org.hibernate.dialect.H2Dialect
     h2enabled: true

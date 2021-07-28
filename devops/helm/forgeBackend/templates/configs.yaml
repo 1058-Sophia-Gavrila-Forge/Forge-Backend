@@ -3,13 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-{{ .Values.dbconfig.name }}
 data:
-{{- with .Values.db.persist }}
-  spring.datasource.url: jdbc:{{ternary "postgresql://" "h2:" . }}{{ternary "mem:testdb"}}
-{{- end }}
-{{- with .Values.dbconfig.datasource }}
-  spring.datasource.driverClassName: {{ .driverClassName | quote }}
-  spring.jpa.database.platform: {{ .platform | quote }}
-  spring.h2.console.enabled: {{ .h2enabled | quote }}
+  DB_URL: jdbc:{{ternary "postgresql://" "h2:" .Values.db.persist }}{{ternary (printf "%s:5432/postgres" .Values.db.service.name) "mem:testdb" .Values.db.persist }}
 {{- end }}
   server.port: {{ .Values.deploy.port | quote }}
 

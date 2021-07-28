@@ -46,12 +46,12 @@ spec:
           - configMapRef:
               name: {{ .Release.Name }}-{{ .Values.dbconfig.name }}
           env:
-          - name: spring.datasource.username
+          - name: DB_USER
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-{{ .Values.dbconfig.secretName }}
                 key: username
-          - name: spring.datasource.password
+          - name: DB_PASS
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-{{ .Values.dbconfig.secretName }}

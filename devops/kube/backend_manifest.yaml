@@ -1,5 +1,3 @@
-apiVersion: apps/v1
-kind: Deployment
 metadata: 
   name: forge-backend
 spec:
@@ -15,6 +13,13 @@ spec:
       containers:
       - name: forge-backend
         image: may24devopscontainers.azurecr.io/forge-frontend:latest
+        env:
+          - name: DB_URL
+            value: "DB URL"
+          - name: DB_USER
+            value: "DB USER"
+          - name: DB_PASS
+            value: "DB PASS"
         resources:
           requests:
             memory: "500Mi"

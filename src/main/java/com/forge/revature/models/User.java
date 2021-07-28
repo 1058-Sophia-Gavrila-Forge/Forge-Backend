@@ -7,17 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class User {
+@Getter
+@Setter
+public class User implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 443087736020742952L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

@@ -11,7 +11,6 @@ spec:
     name: {{ .Values.db.service.portName }}
   clusterIP: None
   selector:
-    {{- include "forgeBackend.selectorlabels" . | nindent 4 }}
     part: db
 {{- end }}
 ---
@@ -20,20 +19,17 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ .Values.db.deploy.name }}
-  labels: 
-    {{- include "forgeBackend.labels" . | nindent 4 }}
+  labels:
     part: db
 spec:
   selector:
     matchLabels:
-      {{- include "forgeBackend.selectorlabels" . | nindent 6 }}
       part: db
   serviceName: {{ .Values.db.service.name }}
   replicas: 1
   template:
     metadata:
       labels:
-        {{- include "forgeBackend.selectorlabels" . | nindent 8 }}
         part: db
     spec:
       terminationGracePeriodSeconds: 10
@@ -45,7 +41,7 @@ spec:
           name: {{ .Values.db.deploy.portName }}
         volumeMounts:
         - name: {{ .Values.db.pvc.claimName }}
-          mountPath: {{ .Values.pvc.mountPath }}
+          mountPath: {{ .Values.db.pvc.mountPath }}
         env:
           - name: POSTGRES_USER
             valueFrom:

@@ -39,7 +39,8 @@ jobs:
               image.repository=${{ parameters.repository }}
               imagePullSecrets[0].name=${{ parameters.secretName }}
               image.tag=${{ parameters.imageTag }}
-              dbconfig.datasource."spring\.h2\.console\.enabled"="true"
+              dbconfig.datasource.driverClassName=org.postgresql.Driver
+              
           ${{ if not(parameters.persist) }}:
             overrideValues: |
               image.repository=${{ parameters.repository }}

@@ -4,7 +4,6 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.dbconfig.name }}
 data:
   DB_URL: jdbc:{{ternary "postgresql://" "h2:" .Values.db.persist }}{{ternary (printf "%s:5432/postgres" .Values.db.service.name) "mem:testdb" .Values.db.persist }}
-{{- end }}
   server.port: {{ .Values.deploy.port | quote }}
 
 ---

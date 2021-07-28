@@ -32,19 +32,11 @@ jobs:
           chartType: 'FilePath'
           chartPath: '${{ parameters.chartPath }}'
           releaseName: '${{ parameters.releaseName }}'
-          ${{ if eq(parameters.persist, true) }}:
-            overrideValues: |
-              image.repository=${{ parameters.repository }}
-              imagePullSecrets[0].name=${{ parameters.secretName }}
-              image.tag=${{ parameters.imageTag }}
-              dbconfig.datasource.driverClassName=org.postgresql.Driver
-              
-          ${{ if not(parameters.persist) }}:
-            overrideValues: |
-              image.repository=${{ parameters.repository }}
-              imagePullSecrets[0].name=${{ parameters.secretName }}
-              image.tag=${{ parameters.imageTag }}
-              
+          overrideValues: |
+            image.repository=${{ parameters.repository }}
+            imagePullSecrets[0].name=${{ parameters.secretName }}
+            image.tag=${{ parameters.imageTag }}
+
           arguments: |
             --atomic 
         displayName: 'Helm Deploy'

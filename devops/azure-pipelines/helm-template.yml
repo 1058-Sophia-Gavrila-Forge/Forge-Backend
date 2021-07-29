@@ -36,7 +36,7 @@ jobs:
             image.repository=${{ parameters.repository }}
             imagePullSecrets[0].name=${{ parameters.secretName }}
             image.tag=${{ parameters.imageTag }}
-
+            persist=true
           arguments: |
             --atomic 
         displayName: 'Helm Deploy'

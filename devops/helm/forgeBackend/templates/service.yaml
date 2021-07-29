@@ -12,7 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: forge-backend
-    version: 0.0.1
-    project: forge
+    {{- include "forgeBackend.selectorLabels" . | nindent 4 }}
     part: backend

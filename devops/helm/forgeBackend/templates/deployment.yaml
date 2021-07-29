@@ -3,9 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "forgeBackend.fullname" . }}
   labels:
-    app: forge-backend
-    version: 0.0.1
-    project: forge
+    {{- include "forgeBackend.labels" . | nindent 4 }}
     part: backend
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -13,9 +11,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: forge-backend
-      version: 0.0.1
-      project: forge
+      {{- include "forgeBackend.selectorLabels" . | nindent 6 }}
       part: backend
   template:
     metadata:

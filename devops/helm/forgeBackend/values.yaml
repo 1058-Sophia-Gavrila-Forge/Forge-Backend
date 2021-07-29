@@ -29,7 +29,7 @@ db:
     portName: psql
   pvc:
     claimName: t2dbdata
-    mountPath: /var/lib/postgresql/data
+    mountPath: /var/lib/postgresql/
     storageClassName: default
     resources:
       requests:
